@@ -1,3 +1,3 @@
-function abc(arr){
-    return arr[0] + arr[1];
+function abc(b,c){
+    return b + c;
 }
