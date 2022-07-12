@@ -1,5 +1,4 @@
 const db = require('../models/db.model');
-const AccountModel = db.Account;
 const getAllUser =  async (req, res) => {
     try {
       const users = await UserModel.findAll();
