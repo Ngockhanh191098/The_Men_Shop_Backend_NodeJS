@@ -18,7 +18,7 @@ const isMember = async( req, res, next ) => {
     const id = req.userID;
     const user = await UserModel.findOne({ where: { id }});
     console.log(user.dataValues.iam_role);
-    if (user.dataValues.iam_role === PERMISSION_ADMIN ){     
+    if (user.dataValues.iam_role === PERMISSION_MEMBER ){     
         return next();        
     }
     return res.status( 403 ).json({
