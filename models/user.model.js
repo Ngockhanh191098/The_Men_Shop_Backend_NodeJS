@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
             hash_pwd: {
                 type: DataTypes.STRING,
                 allowNull: false
-            },
+            }
         },
         {
             timestamp: true,
