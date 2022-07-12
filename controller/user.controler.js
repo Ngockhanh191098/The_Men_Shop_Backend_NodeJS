@@ -10,7 +10,7 @@ const getAllUser =  async (req, res) => {
         return res.status(404).json({ message: "Error: server not found data " });
       }
     } catch (error) {
-        returnres.status(500).json({ message: "Server got error" });
+        return res.status(500).json({ message: "Server got error" });
     } 
 };
 module.exports={getAllUser}
