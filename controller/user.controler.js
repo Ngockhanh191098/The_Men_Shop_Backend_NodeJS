@@ -1,12 +1,10 @@
 const db = require('../models/db.model');
-const UserModel = db.User;
-
-const getAllUser=  async (req, res) => {
+const AccountModel = db.Account;
+const getAllUser =  async (req, res) => {
     try {
-      const users = await UserModel.findAll();
-      if (users) {
-        res.status(200);
-        res.json(users);
+      const account = await AccountModel.findAll();
+      if (account) {  
+        res.status(200).json(account);
       }
       else{
         res.status(404);
