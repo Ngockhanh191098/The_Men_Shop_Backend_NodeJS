@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    isIn: [PERMISSION_ADMIN,PERMISSION_MEMBER]
+                    isIn: [[PERMISSION_ADMIN,PERMISSION_MEMBER]]
                 }
             },
             emailCode: {
