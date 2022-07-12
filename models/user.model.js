@@ -33,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
             hash_pwd: {
                 type: DataTypes.STRING,
                 allowNull: false
+            },
+            iam_role: {
+                type: DataTypes.STRING,
+                allowNull: false
             }
         },
         {
