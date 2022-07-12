@@ -8,13 +8,18 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 allowNull: false
             },
-            status: {
+            fullName: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    isIn: ["Pending", "Checked out"]
-                }
-            }
+                allowNull: false
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
         },
         {
             timestamp: true,
