@@ -5,7 +5,7 @@ const verfyToken = ( req, res, next ) => {
     let token = req.headers[ "x-access-token"];
 
     //return 403 error if token not found
-    if(!token){
+    if( !token ){
         return res.status( 403 ).json({
             messege:" Notoken provided!",
         });
@@ -13,8 +13,8 @@ const verfyToken = ( req, res, next ) => {
     
     //verify jwt token
     jwt.verify( token, config.secrect, ( err, decoded ) => {
-        if(err){
-            return res.status(403).json({
+        if( err ){
+            return res.status( 403 ).json({
                 messege:"Forbiden! Requeries a token to access",
             });
         }
@@ -22,4 +22,4 @@ const verfyToken = ( req, res, next ) => {
         next();
     });
 };
-module.exports = {verfyToken}
+module.exports = { verfyToken }

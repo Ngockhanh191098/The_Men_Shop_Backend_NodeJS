@@ -7,10 +7,10 @@ const AccountModel = db.Account;
 const isAdmin = async( req, res, next ) => {
     const id = req.userID
     const account = await AccountModel.findOne({ where: { UserId : id }});  
-    if (account.iam_role === PERMISSION_ADMIN ){       
+    if ( account.iam_role === PERMISSION_ADMIN ){       
         return next();
     }
-    return res.status(403).json({
+    return res.status( 403 ).json({
         messege:"forbidden!require admin role",
     });
 };
@@ -18,11 +18,11 @@ const isAdmin = async( req, res, next ) => {
 const isMember = async( req, res, next ) => {
     const id = req.userID;
     const account = await AccountModel.findOne({ where: { UserId : id }});
-    console.log(account.dataValues.iam_role);
-    if (account.dataValues.iam_role === PERMISSION_ADMIN ){     
+    console.log( account.dataValues.iam_role );
+    if ( account.dataValues.iam_role === PERMISSION_ADMIN ){     
         return next();        
     }
-    return res.status(403).json({
+    return res.status( 403 ).json({
         messege:"forbidden!require member role",
     });
 };

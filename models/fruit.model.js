@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = ( sequelize, DataTypes ) => {
     const Fruit = sequelize.define(
         "Fruit",
         {

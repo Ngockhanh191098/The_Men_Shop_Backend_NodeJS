@@ -1,6 +1,6 @@
 const { PERMISSION_ADMIN, PERMISSION_MEMBER } = require('../config/permission.config')
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = ( sequelize, DataTypes ) => {
     const Account = sequelize.define(
         "Account",
         {
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: false,
                 validate: {
-                    isIn: [[PERMISSION_ADMIN,PERMISSION_MEMBER]]
+                    isIn: [[ PERMISSION_ADMIN, PERMISSION_MEMBER ]]
                 }
             },
             emailCode: {
