@@ -1,13 +1,12 @@
 const { PERMISSION_ADMIN, PERMISSION_MEMBER } = require('../config/permission.config');
 const db = require('../models/db.model');
 const UserModel = db.User;
-const AccountModel = db.Account;
 
 //verify if it's admin permission
 const isAdmin = async( req, res, next ) => {
     const id = req.userID
-    const account = await AccountModel.findOne({ where: { UserId : id }});  
-    if ( account.iam_role === PERMISSION_ADMIN ){       
+    const user = await UserModel.findOne({ where: { id }});  
+    if (user.iam_role === PERMISSION_ADMIN ){       
         return next();
     }
     return res.status( 403 ).json({
@@ -17,9 +16,9 @@ const isAdmin = async( req, res, next ) => {
 //very if it;s member permission
 const isMember = async( req, res, next ) => {
     const id = req.userID;
-    const account = await AccountModel.findOne({ where: { UserId : id }});
-    console.log( account.dataValues.iam_role );
-    if ( account.dataValues.iam_role === PERMISSION_ADMIN ){     
+    const user = await UserModel.findOne({ where: { id }});
+    console.log(user.dataValues.iam_role);
+    if (user.dataValues.iam_role === PERMISSION_ADMIN ){     
         return next();        
     }
     return res.status( 403 ).json({

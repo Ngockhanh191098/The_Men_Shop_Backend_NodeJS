@@ -6,16 +6,12 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.Fruit = require('./fruit.model') (sequelize, DataTypes);
 db.User = require('./user.model') (sequelize, DataTypes);
-db.Account = require('./account.model') (sequelize, DataTypes);
 db.Order = require('./order.model') (sequelize, DataTypes);
 db.OrderDetail = require('./orderDetail.model') (sequelize, DataTypes);
 db.Category = require('./category.model') (sequelize, DataTypes);
 db.Cart = require('./cart.model') (sequelize, DataTypes);
 
-db.User.hasOne( db.Account );
-db.Account.belongsTo( db.User );
-
-db.Category.hasMany( db.Fruit, {
+db.Category.hasMany(db.Fruit, {
     foreignKey: {
         name: "categoryId",
     },
@@ -28,17 +24,17 @@ db.Fruit.belongsTo( db.Category, {
     as: "category"
 });
 
-db.Account.hasMany( db.Cart, {
+db.User.hasMany(db.Cart, {
     foreignKey: {
-        name: "accountId",
+        name: "userId",
     },
     as: "carts"
 });
-db.Cart.belongsTo( db.Account, {
+db.Cart.belongsTo(db.User, {
     foreignKey: {
-        name: "accountId",
+        name: "userId",
     },
-    as: "account"
+    as: "user"
 });
 
 db.Fruit.hasMany( db.Cart, {
@@ -54,17 +50,17 @@ db.Cart.belongsTo( db.Fruit, {
     as: "fruit"
 });
 
-db.Account.hasMany( db.Order, {
+db.User.hasMany(db.Order, {
     foreignKey: {
-        name: "accountId",
+        name: "userId",
     },
     as: "orders"
 });
-db.Order.belongsTo( db.Account, {
+db.Order.belongsTo(db.User, {
     foreignKey: {
-        name: "accountId",
+        name: "userId",
     },
-    as: "account"
+    as: "user"
 });
 
 db.Order.hasMany( db.OrderDetail, {
@@ -82,7 +78,6 @@ db.OrderDetail.belongsTo( db.Order, {
 
 
 db.User.sync();
-db.Account.sync();
 db.Category.sync();
 db.Fruit.sync();
 db.Cart.sync();

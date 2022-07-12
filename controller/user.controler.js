@@ -1,16 +1,15 @@
 const db = require('../models/db.model');
-const AccountModel = db.Account;
-const getAllUser =  async ( req, res ) => {
+const getAllUser =  async (req, res) => {
     try {
-      const account = await AccountModel.findAll();
-      if ( account ) {  
-        res.status( 200 ).json( account );
+      const users = await UserModel.findAll();
+      if (users) {
+        return res.status(200).json(users);
       }
       else{
-        res.status( 404 ).json({ message: "Error: server don't found data " });
+        return res.status(404).json({ message: "Error: server not found data " });
       }
-    } catch ( error ) {
-      res.status( 500 ).json({ message: "server got error" });
+    } catch (error) {
+        return res.status(500).json({ message: "Server got error" });
     } 
 };
 module.exports={ getAllUser }

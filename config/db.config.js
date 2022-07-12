@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = new Sequelize( 'fruit_store', 'root', 'admin', {
+module.exports = new Sequelize( 'fruit_store', 'root', 'password', {
     host: '127.0.0.1',
     dialect: 'mysql',
     operatorAliases: false,
