@@ -12,8 +12,18 @@ db.OrderDetail = require('./orderDetail.model') (sequelize, DataTypes);
 db.Category = require('./category.model') (sequelize, DataTypes);
 db.Cart = require('./cart.model') (sequelize, DataTypes);
 
-db.User.hasOne(db.Account);
-db.Account.belongsTo(db.User);
+db.User.hasOne(db.Account, {
+    foreignKey: {
+        name: "userId",
+    },
+    as: "account"
+});
+db.Account.belongsTo(db.User, {
+    foreignKey: {
+        name: "userId",
+    },
+    as: "user"
+});
 
 db.Category.hasMany(db.Fruit, {
     foreignKey: {

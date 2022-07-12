@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const authRouter = require('./router/auth.router')
 const cors = require('cors');
 const PORT = process.env.PORT || 5000;
-// const db = require('./models/db.model');
+const db = require('./models/db.model');
 
 app.use(cors());
 
