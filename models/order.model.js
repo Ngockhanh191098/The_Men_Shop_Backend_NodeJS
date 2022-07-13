@@ -7,19 +7,7 @@ module.exports = ( sequelize, DataTypes ) => {
                 autoIncrement: true,
                 primaryKey: true,
                 allowNull: false
-            },
-            fullName: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            phone: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
-            address: {
-                type: DataTypes.STRING,
-                allowNull: false
-            },
+            }
         },
         {
             timestamp: true,

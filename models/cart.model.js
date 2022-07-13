@@ -7,10 +7,6 @@ module.exports = ( sequelize, DataTypes ) => {
                 autoIncrement: true,
                 primaryKey: true,
                 allowNull: false
-            },
-            quantity: {
-                type: DataTypes.STRING,
-                allowNull: false,
             }
         },
         {

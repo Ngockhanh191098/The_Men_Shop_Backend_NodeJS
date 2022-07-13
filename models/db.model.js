@@ -8,10 +8,11 @@ db.Product = require('./product.model') (sequelize, DataTypes);
 db.User = require('./user.model') (sequelize, DataTypes);
 db.Order = require('./order.model') (sequelize, DataTypes);
 db.OrderDetail = require('./orderDetail.model') (sequelize, DataTypes);
-db.Promotion = require('./promotion.model') (sequelize, DataTypes);
 db.Category = require('./category.model') (sequelize, DataTypes);
 db.Cart = require('./cart.model') (sequelize, DataTypes);
+db.Payment = require('./payment.model') (sequelize, DataTypes);
 
+// Category vs Product: one-to-many
 db.Category.hasMany(db.Product, {
     foreignKey: {
         name: "categoryId",
@@ -25,19 +26,7 @@ db.Product.belongsTo( db.Category, {
     as: "category"
 });
 
-db.Promotion.hasMany(db.Product, {
-    foreignKey: {
-        name: "promotionId",
-    },
-    as: "products"
-});
-db.Product.belongsTo(db.Promotion, {
-    foreignKey: {
-        name: "promotionId",
-    },
-    as: "promotion"
-});
-
+// User vs Cart: one-to-many
 db.User.hasMany(db.Cart, {
     foreignKey: {
         name: "userId",
@@ -51,6 +40,7 @@ db.Cart.belongsTo(db.User, {
     as: "user"
 });
 
+// Product vs Cart: one-to-many
 db.Product.hasMany( db.Cart, {
     foreignKey: {
         name: "productId",
@@ -64,6 +54,7 @@ db.Cart.belongsTo( db.Product, {
     as: "product"
 });
 
+// User vs Order: one-to-many
 db.User.hasMany(db.Order, {
     foreignKey: {
         name: "userId",
@@ -77,6 +68,7 @@ db.Order.belongsTo(db.User, {
     as: "user"
 });
 
+// Order vs OrderDetail: one-to-many
 db.Order.hasMany( db.OrderDetail, {
     foreignKey: {
         name: "orderId",
@@ -90,7 +82,8 @@ db.OrderDetail.belongsTo( db.Order, {
     as: "order"
 });
 
-db.Product.hasMany( db.OrderDetail, {
+// Product vs OrderDetail: one-to-one
+db.Product.hasOne( db.OrderDetail, {
     foreignKey: {
         name: "productId",
     },
@@ -103,13 +96,17 @@ db.OrderDetail.belongsTo( db.Product, {
     as: "product"
 });
 
+// Order vs Payment: one-to-one
+db.Order.hasOne(db.Payment);
+db.Payment.belongsTo(db.Order);
+
 
 db.User.sync();
 db.Category.sync();
-db.Promotion.sync();
 db.Product.sync();
 db.Cart.sync();
 db.Order.sync();
 db.OrderDetail.sync();
+db.Payment.sync();
 
 module.exports = db;

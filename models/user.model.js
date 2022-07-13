@@ -11,17 +11,11 @@ module.exports = ( sequelize, DataTypes ) => {
             },
             fullName: {
                 type: DataTypes.STRING,
-                allowNull: false,
-                validate: {
-                    len: [3,30],  
-                }
+                allowNull: true,
             },
             username: {
                 type: DataTypes.STRING,
                 allowNull: false,
-                validate: {
-                    len: [3,30],  
-                }
             },
             email: {
                 type: DataTypes.STRING,
@@ -41,7 +35,15 @@ module.exports = ( sequelize, DataTypes ) => {
             iam_role: {
                 type: DataTypes.STRING,
                 allowNull: false
-            }
+            },
+            phone: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
+            address: {
+                type: DataTypes.STRING,
+                allowNull: true
+            },
         },
         {
             timestamp: true,
