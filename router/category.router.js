@@ -6,7 +6,9 @@ const categoryCheck = require('../middlewares/categoryCheck');
 const categoryRouter = express.Router();
 
 categoryRouter.get('/category', verfyToken, getCategory)
+
 categoryRouter.post('/category', verfyToken, isAdmin, categoryCheck, addCategory);
+
 categoryRouter.delete('/category/:id', verfyToken, isAdmin, deleteCategory)
 
 

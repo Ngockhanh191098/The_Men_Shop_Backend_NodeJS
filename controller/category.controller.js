@@ -4,7 +4,6 @@ const CategoryModel = db.Category;
 const getCategory = async (req, res) => {
     try {
         const categoryList = await CategoryModel.findAll();
-        console.log(categoryList);
         return res.status(200).json(categoryList);
     } catch (error) {
         return res.status(500).json({message: error.message})
