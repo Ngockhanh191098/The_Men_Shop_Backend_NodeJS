@@ -90,6 +90,19 @@ db.OrderDetail.belongsTo( db.Order, {
     as: "order"
 });
 
+db.Product.hasMany( db.OrderDetail, {
+    foreignKey: {
+        name: "productId",
+    },
+    as: "orderDetails"
+});
+db.OrderDetail.belongsTo( db.Product, {
+    foreignKey: {
+        name: "productId",
+    },
+    as: "product"
+});
+
 
 db.User.sync();
 db.Category.sync();
