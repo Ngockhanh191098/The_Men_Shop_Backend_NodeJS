@@ -3,7 +3,8 @@ const jwt = require("jsonwebtoken");
 const db = require('../models/db.model');
 const UserModel = db.User;
 const authConfig = require("../config/auth.config");
-const { PERMISSION_MEMBER, PERMISSION_ADMIN } = require("../config/permission.config");
+const { DEFAULT_AVT } = require('../config/common.config')
+const { PERMISSION_MEMBER } = require("../config/permission.config");
 
 exports.signup = async( req, res )=>{
     const {
@@ -18,7 +19,8 @@ exports.signup = async( req, res )=>{
             username,
             email,
             hash_pwd : md5(password),
-            iam_role: PERMISSION_MEMBER,   
+            iam_role: PERMISSION_MEMBER,
+            avatar: DEFAULT_AVT,   
         };
 
         await UserModel.create(createData);       

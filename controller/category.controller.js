@@ -35,9 +35,27 @@ const deleteCategory = async (req, res) => {
     }
 }
 
+const updateCategory = async (req, res) => {
+    const cateId = req.params.id;
+    const {categoryName} = req.body;
+    try {
+        await CategoryModel.update(
+            {categoryName},{
+                where: {
+                    id: cateId,
+                 }   
+            });
+
+        return res.status(200).json({ message: "Update Category Successfully!" })
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+
+}
 
 module.exports = {
     getCategory,
     addCategory,
-    deleteCategory
+    deleteCategory,
+    updateCategory
 }

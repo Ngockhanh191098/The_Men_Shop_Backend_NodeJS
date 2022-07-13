@@ -1,15 +1,17 @@
 const express = require('express');
 const { isAdmin } = require('../middlewares/authJwt');
 const { verfyToken } = require('../middlewares/verifyToken');
-const { addCategory, deleteCategory, getCategory } = require("../controller/category.controller");
+const { addCategory, deleteCategory, getCategory, updateCategory } = require("../controller/category.controller");
 const categoryCheck = require('../middlewares/categoryCheck');
 const categoryRouter = express.Router();
 
-categoryRouter.get('/category', verfyToken, getCategory)
+categoryRouter.get('/', verfyToken, getCategory)
 
-categoryRouter.post('/category', verfyToken, isAdmin, categoryCheck, addCategory);
+categoryRouter.post('/', verfyToken, isAdmin, categoryCheck, addCategory);
 
-categoryRouter.delete('/category/:id', verfyToken, isAdmin, deleteCategory)
+categoryRouter.delete('/:id', verfyToken, isAdmin, deleteCategory);
+
+categoryRouter.put('/:id', verfyToken, isAdmin, categoryCheck, updateCategory);
 
 
 

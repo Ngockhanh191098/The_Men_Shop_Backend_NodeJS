@@ -4,24 +4,38 @@ const sequelize = require('../config/db.config');
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-db.Fruit = require('./fruit.model') (sequelize, DataTypes);
+db.Product = require('./product.model') (sequelize, DataTypes);
 db.User = require('./user.model') (sequelize, DataTypes);
 db.Order = require('./order.model') (sequelize, DataTypes);
 db.OrderDetail = require('./orderDetail.model') (sequelize, DataTypes);
+db.Promotion = require('./promotion.model') (sequelize, DataTypes);
 db.Category = require('./category.model') (sequelize, DataTypes);
 db.Cart = require('./cart.model') (sequelize, DataTypes);
 
-db.Category.hasMany(db.Fruit, {
+db.Category.hasMany(db.Product, {
     foreignKey: {
         name: "categoryId",
     },
-    as: "fruits"
+    as: "products"
 });
-db.Fruit.belongsTo( db.Category, {
+db.Product.belongsTo( db.Category, {
     foreignKey: {
         name: "categoryId",
     },
     as: "category"
+});
+
+db.Promotion.hasMany(db.Product, {
+    foreignKey: {
+        name: "promotionId",
+    },
+    as: "products"
+});
+db.Product.belongsTo(db.Promotion, {
+    foreignKey: {
+        name: "promotionId",
+    },
+    as: "promotion"
 });
 
 db.User.hasMany(db.Cart, {
@@ -37,17 +51,17 @@ db.Cart.belongsTo(db.User, {
     as: "user"
 });
 
-db.Fruit.hasMany( db.Cart, {
+db.Product.hasMany( db.Cart, {
     foreignKey: {
-        name: "fruitId",
+        name: "productId",
     },
     as: "carts"
 });
-db.Cart.belongsTo( db.Fruit, {
+db.Cart.belongsTo( db.Product, {
     foreignKey: {
-        name: "fruitId",
+        name: "productId",
     },
-    as: "fruit"
+    as: "product"
 });
 
 db.User.hasMany(db.Order, {
@@ -79,7 +93,8 @@ db.OrderDetail.belongsTo( db.Order, {
 
 db.User.sync();
 db.Category.sync();
-db.Fruit.sync();
+db.Promotion.sync();
+db.Product.sync();
 db.Cart.sync();
 db.Order.sync();
 db.OrderDetail.sync();

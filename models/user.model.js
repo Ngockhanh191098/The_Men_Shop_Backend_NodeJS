@@ -34,6 +34,10 @@ module.exports = ( sequelize, DataTypes ) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
+            avatar: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
             iam_role: {
                 type: DataTypes.STRING,
                 allowNull: false

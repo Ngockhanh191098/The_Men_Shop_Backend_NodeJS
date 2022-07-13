@@ -1,6 +1,6 @@
 module.exports = ( sequelize, DataTypes ) => {
-    const Fruit = sequelize.define(
-        "Fruit",
+    const Product = sequelize.define(
+        "Product",
         {
             id:{
                 type: DataTypes.INTEGER,
@@ -12,24 +12,20 @@ module.exports = ( sequelize, DataTypes ) => {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
-            mass: {
+            quantity: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
-            },
-            image: {
-                type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: false
             },
             price: {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            origin: {
+            image: {
                 type: DataTypes.STRING,
-                allowNull: false
+                allowNull: false,
             },
-            quantity: {
-                type: DataTypes.INTEGER,
+            size: {
+                type: DataTypes.STRING,
                 allowNull: false
             },
             description: {
@@ -42,5 +38,5 @@ module.exports = ( sequelize, DataTypes ) => {
         }
     );
 
-    return Fruit;
+    return Product;
 }
