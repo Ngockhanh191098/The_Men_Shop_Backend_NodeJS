@@ -8,7 +8,7 @@ module.exports = ( sequelize, DataTypes ) => {
                 primaryKey: true,
                 allowNull: false
             },
-            quantity: {
+            quantityProduct: {
                 type: DataTypes.STRING,
                 allowNull: false,
             }

@@ -10,7 +10,6 @@ const addNewProduct = async (req, res) => {
 
         const createProduct = await ProductModel.create({
             title: newProduct.title,
-            quantity: newProduct.quantity,
             price: newProduct.price,
             image: filename,
             size: newProduct.size,

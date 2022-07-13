@@ -1,6 +1,6 @@
 module.exports = ( sequelize, DataTypes ) => {
-    const Promotion = sequelize.define(
-        "Promotion",
+    const Payment = sequelize.define(
+        "Payment",
         {
             id:{
                 type: DataTypes.INTEGER,
@@ -8,15 +8,18 @@ module.exports = ( sequelize, DataTypes ) => {
                 primaryKey: true,
                 allowNull: false
             },
-            promotion: {
+            paymentMethod: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: false
+            },
+            total: {
+                type: DataTypes.INTEGER,
+                allowNull: false
             }
         },
         {
             timestamp: true,
         }
     );
-
-    return Promotion;
+    return Payment;
 }
