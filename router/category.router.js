@@ -11,7 +11,7 @@ categoryRouter.post('/', verfyToken, isAdmin, categoryCheck, addCategory);
 
 categoryRouter.delete('/:id', verfyToken, isAdmin, deleteCategory);
 
-categoryRouter.put('/:id', verfyToken, isAdmin, categoryCheck, updateCategory);
+categoryRouter.put('/:id', verfyToken, isAdmin, updateCategory);
 
 
 
