@@ -5,8 +5,9 @@ const UserModel = db.User;
 //verify if it's admin permission
 const isAdmin = async( req, res, next ) => {
     const id = req.userID
-    const user = await UserModel.findOne({ where: { id }});  
-    if (user.iam_role === PERMISSION_ADMIN ){       
+ 
+    const user = await UserModel.findOne({ where: { id }});      
+    if (user.iamRole === PERMISSION_ADMIN ){       
         return next();
     }
     return res.status( 403 ).json({
@@ -18,7 +19,7 @@ const isMember = async( req, res, next ) => {
     const id = req.userID;
     const user = await UserModel.findOne({ where: { id }});
     console.log(user.dataValues.iam_role);
-    if (user.dataValues.iam_role === PERMISSION_MEMBER ){     
+    if (user.dataValues.iamRole === PERMISSION_MEMBER ){     
         return next();        
     }
     return res.status( 403 ).json({

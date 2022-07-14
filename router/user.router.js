@@ -1,9 +1,12 @@
 const express = require('express');
-const { getAllUser } = require('../controller/user.controler');
+const { getAllUser, createUser } = require('../controller/user.controler');
 const { isAdmin} = require('../middlewares/authJwt');
 const { verfyToken } = require('../middlewares/verifyToken');
+const verfySignup = require('../middlewares/verifySignup');
 const userRouter = express.Router();
 
-userRouter.get( "/users", verfyToken, isAdmin, getAllUser);
+
+userRouter.get( "/viewUsers", verfyToken, isAdmin, getAllUser );
+userRouter.post( "/createUser", verfyToken, isAdmin, verfySignup, createUser );
 
 module.exports = userRouter;
