@@ -8,16 +8,22 @@ const { PERMISSION_MEMBER, PERMISSION_ADMIN } = require("../config/permission.co
 
 exports.signup = async( req, res )=>{
     const {
+        fullName,
         username,
         email,
-        password       
+        password,
+        phone,
+        address,       
     } = req.body
     try {
         const createData = {
+            fullName,
             username,
             email,
             hash_pwd : md5(password),
             iamRole: PERMISSION_MEMBER,
+            phone,
+            address,
             avatar: DEFAULT_AVT,   
         };
 
@@ -37,7 +43,7 @@ exports.signin = async ( req, res ) => {
                         username
                     }
         });
-        
+                
         if (!foundUser) {
             return res.status(404).json({message: "Not found user!"});
         }

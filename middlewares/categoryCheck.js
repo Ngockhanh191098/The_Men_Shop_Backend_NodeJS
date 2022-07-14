@@ -2,11 +2,11 @@ const db = require('../models/db.model');
 const CategoryModel = db.Category;
 
 const categoryCheck = async (req, res, next) => {
-    const {categoryName} = req.body;
+    const {name} = req.body;
 
     const foundCate = await CategoryModel.findOne({
         where: {
-            categoryName,
+            name,
         }
     });
 
