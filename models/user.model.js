@@ -32,7 +32,7 @@ module.exports = ( sequelize, DataTypes ) => {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            iam_role: {
+            iamRole: {
                 type: DataTypes.STRING,
                 allowNull: false
             },

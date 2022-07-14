@@ -15,7 +15,6 @@ const addNewProduct = async (req, res) => {
             size: newProduct.size,
             description: newProduct.description,
             categoryId: newProduct.categoryId,
-            promotionId: newProduct.promotionId
         });
         console.log(createProduct);
         return res.status(201).json(createProduct);

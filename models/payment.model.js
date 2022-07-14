@@ -8,7 +8,7 @@ module.exports = ( sequelize, DataTypes ) => {
                 primaryKey: true,
                 allowNull: false
             },
-            paymentMethod: {
+            method: {
                 type: DataTypes.STRING,
                 allowNull: false
             },

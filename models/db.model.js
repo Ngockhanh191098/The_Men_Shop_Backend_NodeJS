@@ -97,8 +97,12 @@ db.OrderDetail.belongsTo( db.Product, {
 });
 
 // Order vs Payment: one-to-one
-db.Order.hasOne(db.Payment);
-db.Payment.belongsTo(db.Order);
+db.Order.hasOne(db.Payment,{
+    foreignKey: "orderId"
+});
+db.Payment.belongsTo(db.Order,{
+    foreignKey: "orderId"
+});
 
 
 db.User.sync();
