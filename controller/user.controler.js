@@ -40,4 +40,17 @@ const createUser = async (req, res) => {
     });
   }
 }
-module.exports = { getAllUser, createUser}
+const deleteUser =  async (req, res) => {
+  const {username} = req.body;
+  try {
+      await UserModel.destroy({
+          where: {
+            username,
+          }
+      });
+      return res.status(200).json({message: "Delete User Successfully!"})
+  } catch (error) {
+      return res.status(500).json({message: error.message})
+  }
+};
+module.exports = { getAllUser, createUser, deleteUser}
