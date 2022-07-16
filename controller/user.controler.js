@@ -53,4 +53,20 @@ const deleteUser =  async (req, res) => {
       return res.status(500).json({message: error.message})
   }
 };
-module.exports = { getAllUser, createUser, deleteUser}
+const updateRole = async (req, res) => {
+  const {username} = req.body;
+  const {iamRole} = req.body;
+  try {
+      await UserModel.update(
+          {iamRole},{
+              where: {
+                  username,
+               }   
+          });
+
+      return res.status(200).json({ message: "Update Role Successfully!" })
+  } catch (error) {
+      return res.status(500).json({message: error.message})
+  }
+}
+module.exports = { getAllUser, createUser, deleteUser, updateRole}

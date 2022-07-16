@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllUser, createUser, deleteUser } = require('../controller/user.controler');
+const { getAllUser, createUser, deleteUser, updateRole } = require('../controller/user.controler');
 const { isAdmin} = require('../middlewares/authJwt');
 const { verifyToken } = require('../middlewares/verifyToken');
 const verfySignup = require('../middlewares/verifySignup');
@@ -9,4 +9,5 @@ const userRouter = express.Router();
 userRouter.get( "/viewUsers", verifyToken, isAdmin, getAllUser );
 userRouter.post( "/createUser", verifyToken, isAdmin, verfySignup, createUser );
 userRouter.delete( "/delete", verifyToken, isAdmin, findUser, deleteUser );
+userRouter.put( "/updateRole", verifyToken, isAdmin, findUser, updateRole );
 module.exports = userRouter;
