@@ -1,13 +1,12 @@
 const express = require('express');
 const { isAdmin} = require('../middlewares/authJwt');
-const { verfyToken } = require('../middlewares/verifyToken');
-const { addNewProduct, deleteProduct, getAllProduct } = require('../controller/product.controller');
+const { verifyToken } = require('../middlewares/verifyToken');
+const { addNewProduct, deleteProduct, getAllProduct, updateProduct } = require('../controller/product.controller');
 const productRouter = express.Router();
 
-productRouter.post('/', verfyToken, isAdmin, addNewProduct);
-
+productRouter.post('/', verifyToken, isAdmin, addNewProduct);
 productRouter.get('/', getAllProduct)
-
-productRouter.delete('/:id', verfyToken, isAdmin, deleteProduct);
+productRouter.delete('/:id', verifyToken, isAdmin, deleteProduct);
+productRouter.put('/:id', verifyToken, isAdmin, updateProduct );
 
 module.exports = productRouter;

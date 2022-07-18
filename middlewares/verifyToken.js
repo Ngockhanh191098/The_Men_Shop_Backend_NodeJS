@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config= require("../config/auth.config");
 
-const verfyToken = ( req, res, next ) => {
+const verifyToken = ( req, res, next ) => {
     let token = req.headers[ "x-access-token"];
 
     //return 403 error if token not found
@@ -22,4 +22,4 @@ const verfyToken = ( req, res, next ) => {
         next();
     });
 };
-module.exports = { verfyToken }
+module.exports = { verifyToken }

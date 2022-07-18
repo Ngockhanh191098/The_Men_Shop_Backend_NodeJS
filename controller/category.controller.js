@@ -11,9 +11,13 @@ const getCategory = async (req, res) => {
 }
 
 const addCategory = async (req, res) => {
-    const {categoryName} = req.body;
+    const {name} = req.body;
     try {
+<<<<<<< HEAD
         await CategoryModel.create({name: categoryName})
+=======
+        await CategoryModel.create({name})
+>>>>>>> a6459443fff63791ec6988a0de71a7d34ce83d98
         return res.status(201).json({message: "Add Category Successfully!"})
     } catch (error) {
         return res.status(500).json({message: error.message})
@@ -37,10 +41,10 @@ const deleteCategory = async (req, res) => {
 
 const updateCategory = async (req, res) => {
     const cateId = req.params.id;
-    const {categoryName} = req.body;
+    const {name} = req.body;
     try {
         await CategoryModel.update(
-            {categoryName},{
+            {name},{
                 where: {
                     id: cateId,
                  }   

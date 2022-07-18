@@ -3,7 +3,7 @@ const db = require("../models/db.model");
 const UserModel = db.User
 
 
-const verfySingnup = async ( req, res, next ) => {
+const verfySignup = async ( req, res, next ) => {
     const data = req.body;
     const found = await UserModel.findOne({
         where:{
@@ -15,4 +15,4 @@ const verfySingnup = async ( req, res, next ) => {
     }
     next()  
 };
-module.exports= verfySingnup;
+module.exports= verfySignup;
