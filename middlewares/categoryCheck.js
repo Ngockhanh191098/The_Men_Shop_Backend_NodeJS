@@ -6,7 +6,7 @@ const categoryCheck = async (req, res, next) => {
 
     const foundCate = await CategoryModel.findOne({
         where: {
-            categoryName,
+            name: categoryName
         }
     });
 
