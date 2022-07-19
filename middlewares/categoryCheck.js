@@ -6,11 +6,7 @@ const categoryCheck = async (req, res, next) => {
 
     const foundCate = await CategoryModel.findOne({
         where: {
-<<<<<<< HEAD
-            name: categoryName
-=======
             name,
->>>>>>> a6459443fff63791ec6988a0de71a7d34ce83d98
         }
     });
 

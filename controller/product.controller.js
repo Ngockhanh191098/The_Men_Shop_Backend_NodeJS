@@ -40,6 +40,29 @@ const getAllProduct = async (req, res) => {
     }
 }
 
+const getProductPagination = async (req, res) => {
+    let { offset, limit } = req.query;
+    offset = typeof offset === "string" ? parseInt(offset) : offset;
+    limit = typeof limit === "string" ? parseInt(limit) : limit;
+
+    let { count, rows } = await ProductModel.findAndCountAll({
+        offset,
+        limit
+    });
+
+    // transform rows
+    rows = rows.map((row) => {
+        return row.dataValues;
+    });
+    
+    return res.status(200).json({
+        count,
+        limit,
+        offset,
+        rows
+    })
+}
+
 const deleteProduct = async (req, res) => {
     const productId = req.params.id;
 
@@ -77,5 +100,6 @@ module.exports = {
     addNewProduct,
     deleteProduct,
     getAllProduct,
-    updateProduct
+    updateProduct,
+    getProductPagination
 };

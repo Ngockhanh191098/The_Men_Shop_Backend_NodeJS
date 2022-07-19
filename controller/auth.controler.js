@@ -20,7 +20,7 @@ exports.signup = async( req, res )=>{
             fullName,
             username,
             email,
-            hash_pwd : md5(password),
+            hashPwd : md5(password),
             iamRole: PERMISSION_MEMBER,
             phone,
             address,
@@ -48,8 +48,8 @@ exports.signin = async ( req, res ) => {
             return res.status(404).json({message: "Not found user!"});
         }
 
-        if( md5(password) !== foundUser.hash_pwd) {
-            return res.status(401).json({message: "Your password invalid!"});
+        if( md5(password) !== foundUser.hashPwd) {
+            return res.status(400).json({message: "Your password invalid!"});
         }
 
             //generate token
