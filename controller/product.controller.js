@@ -38,7 +38,7 @@ const getAllProduct = async (req, res) => {
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
-}
+};
 
 const getProductPagination = async (req, res) => {
     let { offset, limit } = req.query;
@@ -61,6 +61,24 @@ const getProductPagination = async (req, res) => {
         offset,
         rows
     })
+};
+
+const getProductWithCategoryId = async (req, res) => {
+    const categoryId = req.params.id;
+    try {
+        const product = await ProductModel.findAll({
+            where: {
+                categoryId,
+            }
+        })
+        if(!product) {
+            return res.status(404).json({message: "Not found product!"})
+        }
+
+        return res.status(200).json(product)
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
 }
 
 const deleteProduct = async (req, res) => {
@@ -94,12 +112,13 @@ const updateProduct = async (req, res) => {
         return res.status(500).json({message: error.message})
     }
 
-}
+};
 
 module.exports = {
     addNewProduct,
     deleteProduct,
     getAllProduct,
     updateProduct,
-    getProductPagination
+    getProductPagination,
+    getProductWithCategoryId
 };

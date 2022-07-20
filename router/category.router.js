@@ -5,7 +5,7 @@ const { addCategory, deleteCategory, getCategory, updateCategory } = require("..
 const categoryCheck = require('../middlewares/categoryCheck');
 const categoryRouter = express.Router();
 
-categoryRouter.get('/', verifyToken, getCategory)
+categoryRouter.get('/', getCategory)
 
 categoryRouter.post('/', verifyToken, isAdmin, categoryCheck, addCategory);
 
