@@ -17,6 +17,48 @@ const getAllUser = async (req, res) => {
     return res.status(500).json({ message: "Server got error" });
   }
 };
+
+const getUserByUsername = async (req, res) => {
+    const username = req.params.username;
+    try {
+      const user = await UserModel.findOne({
+        where: {
+          username,
+        }
+      });
+
+      if(!user) {
+        return res.status(404).json({message: "User not found!"});
+      }
+      return res.status(200).json({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        avatar: user.avatar
+      })
+    } catch (error) {
+      return res.status(500).json({message: error.message})
+    }
+
+}
+
+const changePassword = async (req, res) => {
+    const {username} = req.query;
+    const {password} = req.body;
+    const hashPwd = md5(password);
+    try {
+      await UserModel.update({hashPwd: hashPwd},{
+        where: {
+          username: username
+        }
+      });
+
+      return res.status(200).json({message: "Update password successfully!"})
+    } catch (error) {
+      return res.status(500).json({message: error.message})
+    }
+}
+
 const createUser = async (req, res) => {
   const {   
     username,  
@@ -69,4 +111,11 @@ const updateRole = async (req, res) => {
       return res.status(500).json({message: error.message})
   }
 }
-module.exports = { getAllUser, createUser, deleteUser, updateRole}
+module.exports = { 
+  getAllUser, 
+  createUser, 
+  deleteUser, 
+  updateRole,
+  getUserByUsername,
+  changePassword
+}

@@ -28,7 +28,11 @@ exports.signup = async( req, res )=>{
         };
 
         await UserModel.create(createData);       
-        return res.status(201).json(createData);    
+        return res.status(201).json({
+            message: "Create user successfully!",
+            username: createData.username,
+            email: createData.email
+        });    
     } catch(error){
         return res.status(500).json({message:error.message});
     }
