@@ -8,7 +8,7 @@ productRouter.post('/', verifyToken, isAdmin, addNewProduct);
 
 productRouter.get('/', getProductPagination);
 
-productRouter.get('/:id', getProductWithCategoryId);
+productRouter.get('/category/:id', getProductWithCategoryId);
 
 productRouter.delete('/:id', verifyToken, isAdmin, deleteProduct);
 

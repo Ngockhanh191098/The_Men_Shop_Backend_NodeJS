@@ -44,9 +44,22 @@ const getUserByUsername = async (req, res) => {
 
 const changePassword = async (req, res) => {
     const {username} = req.query;
-    const {password} = req.body;
-    const hashPwd = md5(password);
+    const {currentPassword, newPassword } = req.body; 
     try {
+    const user = await UserModel.findOne({
+      where: {
+        username,
+      }
+    })
+    if(!user) {
+      return res.status(404).json({message: "User not found"})
+    }
+    if(md5(currentPassword) !== user.hashPwd) {
+      return res.status(400).json({message: "Current password is incorrect!"})
+    }
+
+    const hashPwd = md5(newPassword);
+
       await UserModel.update({hashPwd: hashPwd},{
         where: {
           username: username
