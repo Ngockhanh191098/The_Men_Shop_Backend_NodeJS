@@ -1,9 +1,11 @@
 const express = require('express');
-const { forgotPass } = require('../controller/account.controller');
+const { forgotPass, resetPassword } = require('../controller/account.controller');
 const accountRouter = express.Router()
 
 
-accountRouter.post( "/forgot-pass", forgotPass);
+accountRouter.post( "/forgotpass", forgotPass);
+
+accountRouter.put('/reset/:id', resetPassword);
 
 
 module.exports = accountRouter;

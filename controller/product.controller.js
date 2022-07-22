@@ -1,5 +1,7 @@
 const db = require('../models/db.model');
 const ProductModel = db.Product;
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const addNewProduct = async (req, res) => {
     const newProduct = req.body;
@@ -81,6 +83,26 @@ const getProductWithCategoryId = async (req, res) => {
     }
 }
 
+const getProductBySearch = async (req, res) => {
+    const {key} = req.query;
+
+    try {
+        const product = await ProductModel.findAll({
+            where: {
+                title: {
+                    [Op.like] : '%' + key + '%'
+                }
+            }
+        })
+        if (!product) {
+            return res.status(404).json({message: "Not found product you want!"})
+        }
+        return res.status(200).json(product)    
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
+
 const deleteProduct = async (req, res) => {
     const productId = req.params.id;
 
@@ -120,5 +142,6 @@ module.exports = {
     getAllProduct,
     updateProduct,
     getProductPagination,
-    getProductWithCategoryId
+    getProductWithCategoryId,
+    getProductBySearch
 };

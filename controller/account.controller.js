@@ -1,8 +1,9 @@
 const db = require('../models/db.model');
 const UserModel = db.User;
 const jwt = require('jsonwebtoken');
-const authConfig = require("../config/auth.config");
+const config = require("../config/auth.config");
 const sendEmail = require("../service/sendEmail");
+const md5 = require('md5');
 
 const forgotPass = async (req, res) => {
     const {email} = req.body;
@@ -24,7 +25,7 @@ const forgotPass = async (req, res) => {
             username: foundAccount.username
         }
 
-        const tempToken = jwt.sign( payload, authConfig.secrect, { expiresIn: 18000 });
+        const tempToken = jwt.sign( payload, config.secrect, { expiresIn: "15m" });
 
         const link = `http://localhost:3000/reset/${tempToken}`
 
@@ -36,14 +37,43 @@ const forgotPass = async (req, res) => {
                 <a href=${link}>Click here</a>
             `
         )
-        return res.status(200).json({message: "Sended email!"})
+        return res.status(200).json({
+            message: "Sended email!",
+        })
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
 }
 
-const resetPassword = (req, res) => {
+const resetPassword = async (req, res) => {
+    const {newPassword, confirmPassword, token} = req.body;
+    const password = md5(newPassword);
+    if (!token) {
+        return res.status(401).json({message: "Not token provided!"})
+    }
 
+    jwt.verify( token, config.secrect, ( err, decoded ) => {
+        if (err) {
+            return res.status(403).json({message: "Expied to reset password. Please send email again!"});
+        }
+        idUser = decoded.id;
+    });
+
+    if (newPassword !== confirmPassword) {
+        return res.status(400).json({message: "Confirm password not match with new password"})
+    }
+
+    try {
+
+        await UserModel.update({password: password},{
+            where : {
+                id: idUser
+            }
+        })
+        return res.status(200).json({message: "Reset password successfully!"})
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
 }
 
 
