@@ -65,7 +65,7 @@ const resetPassword = async (req, res) => {
 
     try {
 
-        await UserModel.update({password: password},{
+        await UserModel.update({hashPwd: password},{
             where : {
                 id: idUser
             }
@@ -78,6 +78,6 @@ const resetPassword = async (req, res) => {
 
 
 module.exports = {
-    forgotPass,
+    forgotPass, 
     resetPassword
 }
