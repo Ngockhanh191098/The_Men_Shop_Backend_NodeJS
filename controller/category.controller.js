@@ -39,8 +39,7 @@ const updateCategory = async (req, res) => {
     const cateId = req.params.id;
     const {name} = req.body;
     try {
-        await CategoryModel.update(
-            {name},{
+        await CategoryModel.update({name: name},{
                 where: {
                     id: cateId,
                  }   

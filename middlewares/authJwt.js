@@ -10,7 +10,7 @@ const isAdmin = async( req, res, next ) => {
         return next();
     }
     return res.status( 403 ).json({
-        messege:"forbidden!require admin role",
+        messege:"Forbidden!require admin role",
     });
 };
 //very if it;s member permission
@@ -21,7 +21,7 @@ const isMember = async( req, res, next ) => {
         return next();        
     }
     return res.status( 403 ).json({
-        messege:"forbidden!require member role",
+        messege:"Forbidden!require member role",
     });
 };
 
