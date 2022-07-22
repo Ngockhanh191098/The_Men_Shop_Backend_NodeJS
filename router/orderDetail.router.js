@@ -1,11 +1,11 @@
 const express = require('express');
-const { addOderdetail, getOrderDetail, deleteOrderdetail } = require('../controller/orderDetail.controler');
+const { addOrderdetail, getOrderDetail, deleteOrderdetail } = require('../controller/orderDetail.controler');
 const { verifyToken } = require('../middlewares/verifyToken');
 const orderDetailRouter = express.Router();
 
-orderDetailRouter.post('/order/:id/product', verifyToken, addOderdetail);
+orderDetailRouter.post('/order/:id/product', verifyToken, addOrderdetail);
 
-orderDetailRouter.get('/oder/:id/product', verifyToken, getOrderDetail);
+orderDetailRouter.get('/order/:id/product', verifyToken, getOrderDetail);
 
 orderDetailRouter.delete('/:id', verifyToken, deleteOrderdetail);
 

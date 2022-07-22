@@ -4,16 +4,16 @@ const ProductModel = db.Product;
 const OrderModel = db.Order;
 const OrderDetailModel = db.OrderDetail;
 const deleteOrderdetail =  async (req, res) => {
-  const oderDetail = req.params.id;
+  const {userId} = req.params.id;
 
   try {
       await OrderDetailModel.destroy({
           where: {
-              id: oderDetail,
+              id: {userId},
           }
       });
 
-      return res.status(200).json({message: "Delete OderDetail Successfully!"})
+      return res.status(200).json({message: "Delete OrderDetail Successfully!"})
   } catch (error) {
       return res.status(500).json({message: error.message})
   }}
@@ -21,12 +21,18 @@ const deleteOrderdetail =  async (req, res) => {
 const getOrderDetail =  async (req, res) => {
     try {
       const {id}= req.params;
-      const oderDetail = await OrderDetailModel.findOne({where:{
+      const {userId} = await OrderModel.findOne({where:{
         id,
       }});
-      
-      if (oderDetail) {
-        res.status(200).json(oderDetail);
+      const productid = await OrderDetailModel.findAll({where:{
+        orderId : id,
+      }});
+      const userdata = {
+        userId,
+        ...productid
+      }; 
+      if (userId) {
+        res.status(200).json(userdata);
       }
       else{
         res.status(404);
@@ -37,7 +43,7 @@ const getOrderDetail =  async (req, res) => {
       res.json({ message: "server got error" });
     } 
   }
-const addOderdetail = async (req, res) => {
+const addOrderdetail = async (req, res) => {
     try {    
       const {id}= req.params;
       const {productId, quantityProduct}= req.body
@@ -60,4 +66,4 @@ const addOderdetail = async (req, res) => {
       res.json({ message:error});
     }    
   }
-module.exports = {addOderdetail, getOrderDetail, deleteOrderdetail};
+module.exports = {addOrderdetail, getOrderDetail, deleteOrderdetail};
