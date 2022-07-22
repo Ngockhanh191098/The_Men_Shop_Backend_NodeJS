@@ -1,4 +1,3 @@
-const { Cart } = require('../models/db.model');
 const db = require('../models/db.model');
 const ProductModel = db.Product;
 const UserModel = db.User;
