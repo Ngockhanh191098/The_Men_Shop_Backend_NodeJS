@@ -4,6 +4,8 @@ const { verifyToken } = require('../middlewares/verifyToken');
 const { addNewProduct, deleteProduct, getAllProduct, updateProduct, getProductPagination, getProductWithCategoryId, getProductBySearch, getProductById } = require('../controller/product.controller');
 const productRouter = express.Router();
 
+productRouter.get('/search', getProductBySearch)
+
 productRouter.post('/', verifyToken, isAdmin, addNewProduct);
 
 productRouter.get('/', getProductPagination);
@@ -11,8 +13,6 @@ productRouter.get('/', getProductPagination);
 productRouter.get('/:id', verifyToken, getProductById)
 
 productRouter.get('/category/:id', getProductWithCategoryId);
-
-productRouter.get('/search', getProductBySearch)
 
 productRouter.delete('/:id', verifyToken, isAdmin, deleteProduct);
 
