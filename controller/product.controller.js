@@ -65,6 +65,26 @@ const getProductPagination = async (req, res) => {
     })
 };
 
+const getProductDetailById = async (req, res) => {
+    const idProduct = req.params.id;
+    
+    try {
+        const product = await ProductModel.findOne({
+            where: {
+                id: idProduct
+            }
+        })
+    
+        if (!product) {
+            return res.status(404).json({message: "Not found product"});
+        }
+    
+        return res.status(200).json(product);
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
+
 const getProductWithCategoryId = async (req, res) => {
     const categoryId = req.params.id;
     try {
@@ -172,5 +192,6 @@ module.exports = {
     getProductPagination,
     getProductWithCategoryId,
     getProductBySearch,
-    getProductById
+    getProductById,
+    getProductDetailById
 };
