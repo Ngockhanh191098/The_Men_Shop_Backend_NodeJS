@@ -5,7 +5,7 @@ const accountRouter = express.Router()
 
 accountRouter.post( "/forgotpass", forgotPass);
 
-accountRouter.put('/reset/:id', resetPassword);
+accountRouter.put('/reset', resetPassword);
 
 
 module.exports = accountRouter;

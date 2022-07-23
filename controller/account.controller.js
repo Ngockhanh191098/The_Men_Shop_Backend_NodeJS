@@ -58,14 +58,13 @@ const resetPassword = async (req, res) => {
         }
         idUser = decoded.id;
     });
-
     if (newPassword !== confirmPassword) {
         return res.status(400).json({message: "Confirm password not match with new password"})
     }
 
     try {
 
-        await UserModel.update({password: password},{
+        await UserModel.update({hashPwd: password},{
             where : {
                 id: idUser
             }

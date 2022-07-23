@@ -83,6 +83,26 @@ const getProductWithCategoryId = async (req, res) => {
     }
 }
 
+const getProductById = async (req, res) => {
+    const idProduct = req.params.id;
+    
+    try {
+        const product = await ProductModel.findOne({
+            where: {
+                id: idProduct
+            }
+        })
+
+        if (!product) {
+            return res.status(404).json({message: "Not found product!"})
+        }
+
+        return res.status(200).json(product)
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
+
 const getProductBySearch = async (req, res) => {
     const {key} = req.query;
 
@@ -119,15 +139,23 @@ const deleteProduct = async (req, res) => {
     }
 };
 const updateProduct = async (req, res) => {
-    const productId = req.params.id;
-    const {title, price, image, size, description} = req.body;
+    const idProduct = req.params.id;
+    const updateProduct = req.body;
+    const file = req.file;
+    const filename = file.filename;
     try {
-        await ProductModel.update(
-            { title, price, image, size, description },{
+        await ProductModel.update({
+            title: updateProduct.title,
+            price: updateProduct.price,
+            size: updateProduct.size,
+            image: filename,
+            description: updateProduct.description,
+            categoryId: updateProduct.categoryId,
+        },{
                 where: {
-                    id: productId,
+                    id: idProduct,
                  }   
-            });
+        });
 
         return res.status(200).json({ message: "Update Products Successfully!" })
     } catch (error) {
@@ -143,5 +171,6 @@ module.exports = {
     updateProduct,
     getProductPagination,
     getProductWithCategoryId,
-    getProductBySearch
+    getProductBySearch,
+    getProductById
 };

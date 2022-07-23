@@ -3,9 +3,9 @@ const db = require('../models/db.model');
 const ProductModel = db.Product;
 const UserModel = db.User;
 const CartModel = db.Cart;
+
 const deleteCart =  async (req, res) => {
   const cart = req.params.id;
-
   try {
       await CartModel.destroy({
           where: {

@@ -8,11 +8,11 @@ const userRouter = express.Router();
 
 userRouter.get( "/", verifyToken, isAdmin, getAllUser );
 
-userRouter.get('/:username', verifyToken, getUserByUsername)
+userRouter.get('/:username', verifyToken, getUserByUsername);
 
 userRouter.post( "/", verifyToken, isAdmin, verfySignup, createUser );
 
-userRouter.delete( "/:id", verifyToken, isAdmin, findUser, deleteUser );
+userRouter.delete( "/:id", verifyToken, isAdmin, deleteUser );
 
 userRouter.put( "/:id", verifyToken, isAdmin, findUser, updateRole );
 

@@ -17,6 +17,7 @@ db.Category.hasMany(db.Product, {
     foreignKey: {
         name: "categoryId",
     },
+    onDelete: "CASCADE",
     as: "products"
 });
 db.Product.belongsTo( db.Category, {
@@ -31,6 +32,7 @@ db.User.hasMany(db.Cart, {
     foreignKey: {
         name: "userId",
     },
+    onDelete: "CASCADE",
     as: "carts"
 });
 db.Cart.belongsTo(db.User, {
@@ -45,6 +47,7 @@ db.Product.hasMany( db.Cart, {
     foreignKey: {
         name: "productId",
     },
+    onDelete: "CASCADE",
     as: "carts"
 });
 db.Cart.belongsTo( db.Product, {
@@ -59,6 +62,7 @@ db.User.hasMany(db.Order, {
     foreignKey: {
         name: "userId",
     },
+    onDelete: "CASCADE",
     as: "orders"
 });
 db.Order.belongsTo(db.User, {
@@ -73,6 +77,7 @@ db.Order.hasMany( db.OrderDetail, {
     foreignKey: {
         name: "orderId",
     },
+    onDelete: "CASCADE",
     as: "orderDetails"
 });
 db.OrderDetail.belongsTo( db.Order, {
@@ -87,6 +92,7 @@ db.Product.hasOne( db.OrderDetail, {
     foreignKey: {
         name: "productId",
     },
+    onDelete: "CASCADE",
     as: "orderDetails"
 });
 db.OrderDetail.belongsTo( db.Product, {
