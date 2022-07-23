@@ -8,13 +8,9 @@ productRouter.get('/search', getProductBySearch)
 
 productRouter.get('/', getProductPagination);
 
-productRouter.get('/search', getProductBySearch);
-
 productRouter.get('/category/:id', getProductWithCategoryId);
 
 productRouter.get('/detail/:id', getProductDetailById);
-
-productRouter.post('/', verifyToken, isAdmin, addNewProduct);
 
 productRouter.post('/', verifyToken, isAdmin, addNewProduct);
 
