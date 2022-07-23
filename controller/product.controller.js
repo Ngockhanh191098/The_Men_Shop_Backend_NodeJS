@@ -9,7 +9,6 @@ const addNewProduct = async (req, res) => {
     try {
         const file = req.file;
         const filename = file.filename;
-
         const createProduct = await ProductModel.create({
             title: newProduct.title,
             price: newProduct.price,
@@ -124,16 +123,15 @@ const getProductById = async (req, res) => {
 }
 
 const getProductBySearch = async (req, res) => {
-    const {key} = req.query;
-
-    try {
+    const {key} = req.query;    
+    try {  
         const product = await ProductModel.findAll({
             where: {
                 title: {
                     [Op.like] : '%' + key + '%'
                 }
             }
-        })
+        })  
         if (!product) {
             return res.status(404).json({message: "Not found product you want!"})
         }
@@ -142,7 +140,6 @@ const getProductBySearch = async (req, res) => {
         return res.status(500).json({message: error.message})
     }
 }
-
 const deleteProduct = async (req, res) => {
     const productId = req.params.id;
 
