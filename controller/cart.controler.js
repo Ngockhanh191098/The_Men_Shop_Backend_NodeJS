@@ -1,14 +1,13 @@
 const db = require('../models/db.model');
 const ProductModel = db.Product;
-const UserModel = db.User;
 const CartModel = db.Cart;
 
 const deleteCart = async (req, res) => {
-  const cart = req.params.id;
+  const cartId = req.params.id;
   try {
     await CartModel.destroy({
       where: {
-        id: cart,
+        id: cartId,
       }
     });
 
@@ -17,89 +16,97 @@ const deleteCart = async (req, res) => {
     return res.status(500).json({ message: error.message })
   }
 }
-const deleteProductInCart = async (req, res) => {
-  const userId = req.params.id;
-  const {productId} = req.body
+const getProductInCart = async (req, res) => {
+  const idProduct = req.params.id;
   try {
-    const productInUser = await CartModel.findOne({
+    const productInCart = await CartModel.findOne({
       where: {
-        userId,
+        productId: idProduct,
       }
     })
-    if (productInUser) {
-      const product = await CartModel.findOne({
-        where:{
-          productId,
-        }
-      })
-      if (product) {
-        await CartModel.destroy({
-          where: {
-            productId,
-          }
-        });
-        return res.status(200).json({ message: "Delete Cart Successfully!" })
-      }
-      return res.status(404).json({message: "Error: Sever don't found product"})
-    }   
-    return res.status(404).json({ message: "Error: Sever don't found cart of User" })
+    console.log(productInCart);
+  //   if (productInUser) {
+  //     const product = await CartModel.findOne({
+  //       where:{
+  //         productId,
+  //       }
+  //     })
+  //     if (product) {
+  //       await CartModel.destroy({
+  //         where: {
+  //           productId,
+  //         }
+  //       });
+  //       return res.status(200).json({ message: "Delete Cart Successfully!" })
+  //     }
+  //     return res.status(404).json({message: "Error: Sever don't found product"})
+  //   }   
+  //   return res.status(404).json({ message: "Error: Sever don't found cart of User" })
   } catch (error) {
     return res.status(500).json({ message: error.message })
   }
 }
 const getCart = async (req, res) => {
+  const {id} = req.params;
   try {
-    const { id } = req.params;
-    const { fullName, username, email } = await UserModel.findOne({
+    const carts = await CartModel.findAll({
       where: {
-        id,
-      }
-    });
-    const productid = await CartModel.findAll({
-      where: {
-        userId: id,
-      }
-    });
-
-    const userdata = {
-      fullName,
-      username,
-      email,
+        userId: id
+      },
+      include: ["product", "user"]
+    })
+    if (!carts || carts.length === 0) {
+      return res.status(200).json([])
+    }
+    const responsedData = {
+      countItem: carts.length,
+      username: carts[0].user.username,
+      email: carts[0].user.email,
+      items: [],
     };
-    const tmt = { ...userdata, ...productid };
 
-    if (username) {
-      res.status(200).json(tmt);
-    }
-    else {
-      res.status(404);
-      res.json({ message: "Error: server don't found data " });
-    }
+    carts.forEach((cart) => {
+      const productObj = cart.product;
+      const {
+        id: productId,
+        title,
+        price,
+        size,
+        image,
+      } = productObj;
+
+      responsedData.items.push({
+        productId,
+        cartId: cart.id,
+        title,
+        price,
+        size,
+        image,
+      });
+    });
+
+    return res.status(200).json(responsedData);
   } catch (error) {
-    res.status(500);
-    res.json({ message: "server got error" });
+    return res.status(500).json({message: error.message})
   }
 }
 const addProductToCart = async (req, res) => {
-  try {
     const { id } = req.params;
-    const { productId } = req.body
+    const {idProduct} = req.body;
     const data = {
       userId: id,
-      productId: productId
-    };
-    if (data) {
-      const product = await CartModel.create(data);
-      res.status(200);
-      res.json(product);
+      productId: idProduct
     }
-    else {
-      res.status(404);
-      res.json({ message: "Error: server don't found input data " });
+    try {
+      const newCart = await CartModel.create(data)
+      return res.status(201).json(newCart)
+    } catch (error) {
+      return res.status(500).json({message: error.message})
     }
-  } catch (error) {
-    res.status(500);
-    res.json({ message: error });
-  }
 }
-module.exports = { getCart, addProductToCart, deleteCart, deleteProductInCart };
+module.exports = { 
+  getCart, 
+  addProductToCart, 
+  deleteCart, 
+  getProductInCart 
+};
