@@ -10,6 +10,25 @@ const getCategory = async (req, res) => {
     }
 }
 
+const getCateById = async (req, res) => {
+    const idCate = req.params.id;
+    try {
+        const category = await CategoryModel.findOne({
+            where: {
+                id: idCate,
+            }
+        });
+
+        if(!category) {
+            return res.status(404).json({message: "Not found category"})
+        }
+
+        return res.status(200).json(category)
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
+
 const addCategory = async (req, res) => {
     const {name} = req.body;
     try {
@@ -56,5 +75,6 @@ module.exports = {
     getCategory,
     addCategory,
     deleteCategory,
-    updateCategory
+    updateCategory,
+    getCateById
 }

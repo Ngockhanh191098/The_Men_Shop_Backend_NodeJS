@@ -14,7 +14,7 @@ productRouter.get('/detail/:id', getProductDetailById);
 
 productRouter.post('/', verifyToken, isAdmin, addNewProduct);
 
-productRouter.get('/:id', verifyToken, getProductById);
+productRouter.get('/:id', verifyToken, isAdmin,  getProductById);
 
 productRouter.delete('/:id', verifyToken, isAdmin, deleteProduct);
 

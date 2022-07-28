@@ -99,7 +99,7 @@ const addProductToCart = async (req, res) => {
     }
     try {
       const newCart = await CartModel.create(data)
-      return res.status(201).json(newCart)
+      return res.status(201).json({message: "Add to cart successfully!"})
     } catch (error) {
       return res.status(500).json({message: error.message})
     }

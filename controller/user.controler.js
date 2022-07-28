@@ -84,17 +84,20 @@ const createUser = async (req, res) => {
   } = req.body
   try {
     const createData = { 
-      username,   
-      hash_pwd: md5(password),
+      username: username,   
+      hashPwd: md5(password),
       iamRole: PERMISSION_MEMBER,
-      email,
+      email: email,
       avatar: DEFAULT_AVT, 
     };
     await UserModel.create(createData);
-    return res.status(201).json(createData);
+    return res.status(201).json({
+      message: "Add user successfully!",
+      createData
+    });
   } catch (error) {
     return res.status(500).json({
-      message: error.message,
+      message: error.message
       // "server is getting error when creating new User account"
     });
   }

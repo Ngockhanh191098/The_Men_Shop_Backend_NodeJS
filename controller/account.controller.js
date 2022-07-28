@@ -25,7 +25,7 @@ const forgotPass = async (req, res) => {
             username: foundAccount.username
         }
 
-        const tempToken = jwt.sign( payload, config.secrect, { expiresIn: "15m" });
+        const tempToken = jwt.sign( payload, config.secrect, { expiresIn: "10m" });
 
         const link = `http://localhost:3000/reset/${tempToken}`
 
@@ -51,19 +51,14 @@ const resetPassword = async (req, res) => {
     if (!token) {
         return res.status(401).json({message: "Not token provided!"})
     }
+    try {
 
-    jwt.verify( token, config.secrect, ( err, decoded ) => {
-        if (err) {
-            return res.status(403).json({message: "Expied to reset password. Please send email again!"});
-        }
-        idUser = decoded.id;
-    });
+    const decoded = jwt.verify( token, config.secrect)
+    idUser = decoded.id;
+
     if (newPassword !== confirmPassword) {
         return res.status(400).json({message: "Confirm password not match with new password"})
     }
-
-    try {
-
         await UserModel.update({hashPwd: password},{
             where : {
                 id: idUser
