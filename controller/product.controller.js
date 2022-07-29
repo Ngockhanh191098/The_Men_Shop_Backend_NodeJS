@@ -166,22 +166,23 @@ const updateProduct = async (req, res) => {
         const product = await ProductModel.findOne({ where :{
             id: idProduct,
         }})       
-        if (product) {
-            await ProductModel.update({
-                title: updateProduct.title,
-                price: updateProduct.price,
-                size: updateProduct.size,
-                image: filename,
-                description: updateProduct.description,
-                categoryId: updateProduct.categoryId,
-            },{
-                    where: {
-                        id: idProduct,
-                     }   
-            });    
-            return res.status(200).json({ message: "Update Products Successfully!" })
+        if (!product) {
+            return res.status(404).json({message: "Not found product"})  
         }
-        return res.status(404).json({message: "Error: Sever don't found product"})         
+        await ProductModel.update({
+            title: updateProduct.title,
+            price: updateProduct.price,
+            size: updateProduct.size,
+            image: filename,
+            description: updateProduct.description,
+            categoryId: updateProduct.categoryId,
+        },{
+                where: {
+                    id: idProduct,
+                    }   
+        });    
+        return res.status(200).json({ message: "Update Products Successfully!" })
+               
     } catch (error) {
         return res.status(500).json({message: error.message})
     }

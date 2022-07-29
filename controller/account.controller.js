@@ -32,9 +32,9 @@ const forgotPass = async (req, res) => {
         await sendEmail(
             `${email}`,
             `EMAIL RESET PASSWORD`,
-            'We provide for you a link to reset password',
-            `  
-                <a href=${link}>Click here</a>
+            `We provide for you a link to reset password,
+            Click the link to reset password:
+                <a href=${link}>Reset Password</a>
             `
         )
         return res.status(200).json({
@@ -53,12 +53,12 @@ const resetPassword = async (req, res) => {
     }
     try {
 
-    const decoded = jwt.verify( token, config.secrect)
-    idUser = decoded.id;
+        const decoded = jwt.verify( token, config.secrect)
+        idUser = decoded.id;
 
-    if (newPassword !== confirmPassword) {
-        return res.status(400).json({message: "Confirm password not match with new password"})
-    }
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({message: "Confirm password not match with new password"})
+        }
         await UserModel.update({hashPwd: password},{
             where : {
                 id: idUser

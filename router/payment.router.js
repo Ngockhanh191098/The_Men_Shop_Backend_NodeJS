@@ -4,8 +4,6 @@ const { isMember} = require('../middlewares/authJwt');
 const { verifyToken } = require('../middlewares/verifyToken');
 const paymentRouter = express.Router();
 
-paymentRouter.post('/',verifyToken, isMember, addNewPayment)
-
-
+paymentRouter.post("/",verifyToken, isMember, addNewPayment)
 
 module.exports = paymentRouter;

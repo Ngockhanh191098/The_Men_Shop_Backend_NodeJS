@@ -22,37 +22,57 @@ const getAllUser = async (req, res) => {
   }
 };
 
-const getUserByUsername = async (req, res) => {
-    const username = req.params.username;
-    try {
-      const user = await UserModel.findOne({
-        where: {
-          username,
-        }
-      });
+// const getUserByUsername = async (req, res) => {
+//     const username = req.params.username;
+//     try {
+//       const user = await UserModel.findOne({
+//         where: {
+//           username,
+//         }
+//       });
 
-      if(!user) {
-        return res.status(404).json({message: "User not found!"});
+//       if(!user) {
+//         return res.status(404).json({message: "User not found!"});
+//       }
+//       return res.status(200).json({
+//         id: user.id,
+//         username: user.username,
+//         email: user.email,
+//         avatar: user.avatar
+//       })
+//     } catch (error) {
+//       return res.status(500).json({message: error.message})
+//     }
+
+// }
+
+const getUserById = async (req, res) => {
+  const idUser = req.params.id;
+  console.log(idUser);
+  try {
+    const user = await UserModel.findOne({
+      where: {
+        id: idUser,
       }
-      return res.status(200).json({
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        avatar: user.avatar
-      })
-    } catch (error) {
-      return res.status(500).json({message: error.message})
+    });
+
+    if(!user) {
+      return res.status(404).json({message: "Not found user"})
     }
 
+    return res.status(200).json(user)
+  } catch (error) {
+    return res.status(500).json({message: error.message})
+  }
 }
 
 const changePassword = async (req, res) => {
-    const {username} = req.query;
+    const idUser = req.params.id;
     const {currentPassword, newPassword } = req.body; 
     try {
     const user = await UserModel.findOne({
       where: {
-        username,
+        id: idUser,
       }
     })
     if(!user) {
@@ -66,7 +86,7 @@ const changePassword = async (req, res) => {
 
       await UserModel.update({hashPwd: hashPwd},{
         where: {
-          username: username
+          id: idUser,
         }
       });
 
@@ -74,6 +94,33 @@ const changePassword = async (req, res) => {
     } catch (error) {
       return res.status(500).json({message: error.message})
     }
+}
+
+const updateInfoUser = async (req, res) => {
+  const idUser = req.params.id;
+  const { fullName, phone, address } = req.body;
+  if(fullName === '' || phone === '' || address === '') {
+    return res.status(400).json({message: "Require feild all input!"})
+  }
+  try {
+    await UserModel.findOne({
+      where: {
+        id: idUser,
+      }
+    })
+    if(!user) {
+      return res.status(404).json({message: "Not found user!"})
+    }
+
+    await UserModel.update({fullName: fullName, phone: phone, address: address},{
+      where: {
+        id: idUser,
+      }
+    })
+    
+  } catch (error) {
+    return res.status(500).json({message: error.message})
+  }
 }
 
 const createUser = async (req, res) => {
@@ -137,6 +184,7 @@ module.exports = {
   createUser, 
   deleteUser, 
   updateRole,
-  getUserByUsername,
-  changePassword
+  changePassword,
+  getUserById,
+  updateInfoUser
 }
