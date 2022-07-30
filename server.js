@@ -27,13 +27,13 @@ app.use("/public/images", express.static(__dirname + "/public/images"));
 app.use(upload.single("image"));
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/category", categoryRouter);
-app.use("/api/v1/product", productRouter);
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/categories", categoryRouter);
+app.use("/api/v1/products", productRouter);
 app.use("/api/v1/payments", paymentRouter);
-app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/orders", orderRouter);
 app.use('/api/v1/account', accountRouter)
-app.use("/api/v1/cart",cartRouter);
+app.use("/api/v1/carts",cartRouter);
 app.use("/api/v1/orderDetail", orderDetailRouter);
 
 app.listen( PORT, () => {

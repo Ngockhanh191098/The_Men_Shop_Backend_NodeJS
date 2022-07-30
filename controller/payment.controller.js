@@ -8,7 +8,7 @@ const CartModel = db.Cart;
 const PaymentModel = db.Payment;
 
 const addNewPayment = async (req, res) => {
-    const {fullName, phone, address, email, listItems, totalBill, totalItems,idUser, method} = req.body;
+    const {fullName, phone, address, email, listItems, totalBill,idUser, method} = req.body;
 
     const t = await db.sequelize.transaction();
 
@@ -53,7 +53,7 @@ const addNewPayment = async (req, res) => {
         },
         { transaction: t }
         )
-        console.log(createdPayment);
+
         // delete all Cart item after done
         await CartModel.destroy(
             {
@@ -72,11 +72,11 @@ const addNewPayment = async (req, res) => {
             `Thank you for ordering at our shop!
 Payment Details:
 
-##############################################################
+########################################################
 PaymentID: ${createdPayment.id}
 Payment Method: ${createdPayment.method}
 Paid: ${createdPayment.total} VND
-##############################################################
+########################################################
 
 Good luck and have fun!
 Men Fashion Shop`
@@ -92,7 +92,27 @@ Men Fashion Shop`
     }
 }
 
+const getPayment = async (req, res) => {
+    const orderId = req.params.id;
+
+    try {
+        const payment = await PaymentModel.findOne({
+            where: {
+                orderId: orderId,
+            }
+        })
+
+        if(!payment) {
+            return res.status(404).json({message: "Not found payment"})
+        }
+
+        return res.status(200).json(payment)
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
 
 module.exports = {
-    addNewPayment
+    addNewPayment,
+    getPayment
 }

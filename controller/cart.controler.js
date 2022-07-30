@@ -16,36 +16,7 @@ const deleteCart = async (req, res) => {
     return res.status(500).json({ message: error.message })
   }
 }
-const getProductInCart = async (req, res) => {
-  const idProduct = req.params.id;
-  try {
-    const productInCart = await CartModel.findOne({
-      where: {
-        productId: idProduct,
-      }
-    })
-    console.log(productInCart);
-  //   if (productInUser) {
-  //     const product = await CartModel.findOne({
-  //       where:{
-  //         productId,
-  //       }
-  //     })
-  //     if (product) {
-  //       await CartModel.destroy({
-  //         where: {
-  //           productId,
-  //         }
-  //       });
-  //       return res.status(200).json({ message: "Delete Cart Successfully!" })
-  //     }
-  //     return res.status(404).json({message: "Error: Sever don't found product"})
-  //   }   
-  //   return res.status(404).json({ message: "Error: Sever don't found cart of User" })
-  } catch (error) {
-    return res.status(500).json({ message: error.message })
-  }
-}
+
 const getCart = async (req, res) => {
   const {id} = req.params;
   try {
@@ -55,6 +26,7 @@ const getCart = async (req, res) => {
       },
       include: ["product", "user"]
     })
+    console.log(carts);
     if (!carts || carts.length === 0) {
       return res.status(200).json([])
     }
@@ -98,7 +70,7 @@ const addProductToCart = async (req, res) => {
       productId: idProduct
     }
     try {
-      const newCart = await CartModel.create(data)
+      await CartModel.create(data)
       return res.status(201).json({message: "Add to cart successfully!"})
     } catch (error) {
       return res.status(500).json({message: error.message})
@@ -107,6 +79,5 @@ const addProductToCart = async (req, res) => {
 module.exports = { 
   getCart, 
   addProductToCart, 
-  deleteCart, 
-  getProductInCart 
+  deleteCart,  
 };
