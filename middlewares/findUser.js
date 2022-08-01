@@ -1,10 +1,10 @@
 const db = require("../models/db.model");
 const UserModel = db.User
 const findUser = async ( req, res, next ) => {
-    const data = req.body;
+    const data = req.params;
     const found = await UserModel.findOne({
         where:{
-            username:data.username
+            id:data.id
         },
     });
     if( !found ){

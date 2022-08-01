@@ -6,49 +6,22 @@ const UserModel = db.User
 
 const getAllUser = async (req, res) => {
   try {
-    const users = await UserModel.findAll({
-      where: {
-        iamRole: "member"
-      }
-    });
-    if (users) {
-      return res.status(200).json(users);
+    const users = await UserModel.findAll();
+    if (!users) {
+      return res.status(404).json({ message: "Error: server not found data " });
     }
 
-    return res.status(404).json({ message: "Error: server not found data " });
+    return res.status(200).json(users);
 
   } catch (error) {
     return res.status(500).json({ message: "Server got error" });
   }
 };
 
-// const getUserByUsername = async (req, res) => {
-//     const username = req.params.username;
-//     try {
-//       const user = await UserModel.findOne({
-//         where: {
-//           username,
-//         }
-//       });
-
-//       if(!user) {
-//         return res.status(404).json({message: "User not found!"});
-//       }
-//       return res.status(200).json({
-//         id: user.id,
-//         username: user.username,
-//         email: user.email,
-//         avatar: user.avatar
-//       })
-//     } catch (error) {
-//       return res.status(500).json({message: error.message})
-//     }
-
-// }
 
 const getUserById = async (req, res) => {
   const idUser = req.params.id;
-  console.log(idUser);
+
   try {
     const user = await UserModel.findOne({
       where: {
@@ -149,6 +122,7 @@ const createUser = async (req, res) => {
     });
   }
 }
+
 const deleteUser =  async (req, res) => {
 
   const {id} = req.params;
@@ -163,14 +137,15 @@ const deleteUser =  async (req, res) => {
       return res.status(500).json({message: error.message})
   }
 };
+
 const updateRole = async (req, res) => {
-  const {username} = req.body;
+  const {id} = req.params;
   const {iamRole} = req.body;
   try {
       await UserModel.update(
-          {iamRole},{
+          {iamRole:iamRole},{
               where: {
-                  username,
+                  id: id,
                }   
           });
 

@@ -8,8 +8,6 @@ const userRouter = express.Router();
 
 userRouter.get( "/", verifyToken, isAdmin, getAllUser );
 
-// userRouter.get('/:username', verifyToken, getUserByUsername);
-
 userRouter.get('/:id', verifyToken, getUserById)
 
 userRouter.post( "/", verifyToken, isAdmin, verfySignup, createUser );
@@ -18,7 +16,7 @@ userRouter.delete( "/:id", verifyToken, isAdmin, deleteUser );
 
 userRouter.put('/changepass/:id', verifyToken, changePassword);
 
-userRouter.put('/info/:id', verifyToken,  isMember, updateInfoUser)
+userRouter.put('/info/:id', verifyToken,  isMember, updateInfoUser);
 
 userRouter.put( "/:id", verifyToken, isAdmin, findUser, updateRole );
 
