@@ -32,10 +32,8 @@ const forgotPass = async (req, res) => {
         await sendEmail(
             `${email}`,
             `EMAIL RESET PASSWORD`,
-            `We provide for you a link to reset password,
-            Click the link to reset password:
-                <a href=${link}>Reset Password</a>
-            `
+            'Click here to reset password',
+            `<a href=${link} style="background-color: blue; color: white; padding: 20px; text-decoration: none">Reset Password</a>`
         )
         return res.status(200).json({
             message: "Sended email!",
@@ -70,8 +68,32 @@ const resetPassword = async (req, res) => {
     }
 }
 
+const changeAvatar = async (req, res) => {
+    const idUser = req.params.id;
+    const file = req.file;
+    const filename = file.filename;
+    try {
+        await UserModel.update({avatar: filename},{
+            where: {
+                id: idUser,
+            }
+        })
+        const user = await UserModel.findOne({
+            where: {
+                id: idUser
+            }
+        })
+        return res.status(200).json({
+            user,
+            message: "Change avatar successfully!"
+        })
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
 
 module.exports = {
     forgotPass, 
-    resetPassword
+    resetPassword,
+    changeAvatar
 }

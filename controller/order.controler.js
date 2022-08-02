@@ -61,12 +61,27 @@ const getAllOrder = async (req, res) => {
 
 };
 
-// const getOrderByIdUser = (req, res) => {
-//     const idUser = req.params.id;
-//     console.log(idUser);
-// }
+const getOrderByIdUser = async (req, res) => {
+    const idUser = req.params.id;
+    
+    try {
+      const orders = await OrderModel.findAll({
+        where: {
+          userId: idUser,
+        }
+      });
+  
+      if (!orders) {
+        return res.status(404).json({message: "Not found order by user"});
+      }
+  
+      return res.status(200).json(orders)
+    } catch (error) {
+      return res.status(500).json({message: error.message})
+    }
+}
 
 module.exports = {
   getAllOrder,
-  // getOrderByIdUser
+  getOrderByIdUser
 };
