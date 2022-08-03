@@ -1,7 +1,7 @@
+require('dotenv').config()
 const db = require('../models/db.model');
 const UserModel = db.User;
 const jwt = require('jsonwebtoken');
-const config = require("../config/auth.config");
 const sendEmail = require("../service/sendEmail");
 const md5 = require('md5');
 
@@ -25,7 +25,7 @@ const forgotPass = async (req, res) => {
             username: foundAccount.username
         }
 
-        const tempToken = jwt.sign( payload, config.secrect, { expiresIn: "10m" });
+        const tempToken = jwt.sign( payload, process.env.SECRET_KEY, { expiresIn: "10m" });
 
         const link = `http://localhost:3000/reset/${tempToken}`
 
@@ -51,7 +51,7 @@ const resetPassword = async (req, res) => {
     }
     try {
 
-        const decoded = jwt.verify( token, config.secrect)
+        const decoded = jwt.verify( token, process.env.SECRET_KEY)
         idUser = decoded.id;
 
         if (newPassword !== confirmPassword) {

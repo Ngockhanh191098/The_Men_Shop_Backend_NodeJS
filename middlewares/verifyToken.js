@@ -1,3 +1,4 @@
+require('dotenv').config()
 const jwt = require("jsonwebtoken");
 const config= require("../config/auth.config");
 
@@ -12,7 +13,7 @@ const verifyToken = ( req, res, next ) => {
     }
     
     //verify jwt token
-    jwt.verify( token, config.secrect, ( err, decoded ) => {
+    jwt.verify( token, process.env.SECRET_KEY, ( err, decoded ) => {
         if( err ){
             return res.status( 403 ).json({
                 messege:"Forbiden! Requeries a token to access",

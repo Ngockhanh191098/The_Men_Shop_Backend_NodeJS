@@ -84,7 +84,7 @@ const getProductDetailById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
-}
+};
 
 const getProductWithCategoryId = async (req, res) => {
     const categoryId = req.params.id;
@@ -102,7 +102,7 @@ const getProductWithCategoryId = async (req, res) => {
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
-}
+};
 
 const getProductById = async (req, res) => {
     const idProduct = req.params.id;
@@ -122,26 +122,28 @@ const getProductById = async (req, res) => {
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
-}
+};
 
 const getProductBySearch = async (req, res) => {
     const {key} = req.query;    
-    try {  
+    try {
         const product = await ProductModel.findAll({
             where: {
                 title: {
                     [Op.like] : '%' + key + '%'
                 }
             }
-        })  
+        })
         if (!product) {
             return res.status(404).json({message: "Not found product you want!"})
         }
-        return res.status(200).json(product)    
+        return res.status(200).json(product)
+            
     } catch (error) {
         return res.status(500).json({message: error.message})
     }
-}
+};
+
 const deleteProduct = async (req, res) => {
     const productId = req.params.id;
 
@@ -157,6 +159,7 @@ const deleteProduct = async (req, res) => {
         return res.status(500).json({message: error.message})
     }
 };
+
 const updateProduct = async (req, res) => {
     const idProduct = req.params.id;
     const updateProduct = req.body;
@@ -187,6 +190,7 @@ const updateProduct = async (req, res) => {
         return res.status(500).json({message: error.message})
     }
 };
+
 module.exports = {
     addNewProduct,
     deleteProduct,

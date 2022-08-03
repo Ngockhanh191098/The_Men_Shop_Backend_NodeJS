@@ -1,5 +1,6 @@
+require('dotenv').config()
 const nodemailer = require("nodemailer");
-const { FROM_EMAIL, FROM_PWD } = require('../config/email.config');
+const { FROM_EMAIL } = require('../config/email.config');
 
 // async..await is not allowed in global scope, must use a wrapper
 async function sendEmail(toEmail, subject, content, html) {
@@ -10,7 +11,7 @@ async function sendEmail(toEmail, subject, content, html) {
     service: "gmail",
     auth: {
       user: FROM_EMAIL, // generated ethereal user
-      pass: FROM_PWD, // generated ethereal password
+      pass: process.env.EMAIL_PWD, // generated ethereal password
     },
 });
   // send mail with defined transport object

@@ -1,8 +1,8 @@
+require('dotenv').config()
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
 const db = require('../models/db.model');
 const UserModel = db.User;
-const authConfig = require("../config/auth.config");
 const { DEFAULT_AVT } = require('../config/common.config')
 const { PERMISSION_MEMBER, PERMISSION_ADMIN } = require("../config/permission.config");
 
@@ -57,7 +57,7 @@ exports.signin = async ( req, res ) => {
         }
 
             //generate token
-        const token = jwt.sign( { id:foundUser.id }, authConfig.secrect, { expiresIn: 86400 });
+        const token = jwt.sign( { id:foundUser.id }, process.env.SECRET_KEY, { expiresIn: 86400 });
         res.status(200).json({
             id: foundUser.id,
             username: foundUser.username,
