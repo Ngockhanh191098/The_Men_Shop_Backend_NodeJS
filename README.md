@@ -27,3 +27,13 @@ Some technologies in project:
 ```
 
 # HOW TO RUN
+
+### Before run the project
+
+You must install all dependencies in app:
+
+#### `npm install`
+
+After install all dependencies, you can run:
+
+#### `npm start`
