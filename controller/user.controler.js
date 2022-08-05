@@ -41,7 +41,10 @@ const getUserById = async (req, res) => {
 
 const changePassword = async (req, res) => {
     const idUser = req.params.id;
-    const {currentPassword, newPassword } = req.body; 
+    const {currentPassword, newPassword } = req.body;
+    if (currentPassword === newPassword) {
+      return res.status(400).json({message: "New password must not be the same as old password"})
+    }
     try {
     const user = await UserModel.findOne({
       where: {

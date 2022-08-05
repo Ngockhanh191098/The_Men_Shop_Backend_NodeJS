@@ -70,6 +70,16 @@ const addProductToCart = async (req, res) => {
       productId: idProduct
     }
     try {
+      const foundProduct = await CartModel.findOne({
+        where: {
+          productId: idProduct,
+        }
+      });
+
+      if (foundProduct) {
+        return res.status(401).json({message: "Product is exist in cart!"})
+      }
+
       await CartModel.create(data)
       return res.status(201).json({message: "Add to cart successfully!"})
     } catch (error) {
