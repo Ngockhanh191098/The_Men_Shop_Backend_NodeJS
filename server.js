@@ -25,25 +25,6 @@ app.use( bodyParser.urlencoded({ extended: false }) );
 // parse application/json
 app.use( bodyParser.json() );
 
-// const option = {
-//     definition : {
-//         openapi: '3.0.0',
-//         info: {
-//             title: 'Library API',
-//             version: '1.0.0',
-//             description: 'A simple express library API of E-Commerce Men Fashion system'
-//         },
-//         servers: [
-//             {
-//                 url: "http://127.0.0.1:5000/api/v1"
-//             }
-//         ],
-//     },
-//     apis: ["./router/*.js"]
-// }
-
-// const specs = swaggerJsDoc(option);
-
 app.use('/api-doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
 app.use("/public/images", express.static(__dirname + "/public/images"));
