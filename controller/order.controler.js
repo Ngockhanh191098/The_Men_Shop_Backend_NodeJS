@@ -3,10 +3,12 @@ const db = require('../models/db.model');
 const OrderModel = db.Order;
 
 const getAllOrder = async (req, res) => {
-  const {date} = req.query;
+  let { date } = req.query;
 
   try {
+
     if (date === 'all') {
+
         const orders = await OrderModel.findAll({
           include: ["user"]
         });
@@ -16,7 +18,7 @@ const getAllOrder = async (req, res) => {
             orderId: order.dataValues.id,
             createdAt: order.dataValues.createdAt,
             username: order.user.username,
-            email: order.user.email
+            email: order.user.email,
           })
         })
   
