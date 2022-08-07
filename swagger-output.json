@@ -40,9 +40,6 @@
           },
           "404": {
             "description": "Not Found"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
