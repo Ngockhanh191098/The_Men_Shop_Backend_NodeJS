@@ -4,7 +4,7 @@ const { verifyToken } = require('../middlewares/verifyToken');
 const { addNewProduct, deleteProduct, getAllProduct, updateProduct, getProductPagination, getProductWithCategoryId, getProductBySearch, getProductById, getProductDetailById } = require('../controller/product.controller');
 const productRouter = express.Router();
 
-productRouter.get('/search', getProductBySearch)
+productRouter.get('/search', getProductBySearch);
 
 productRouter.get('/', getProductPagination);
 
