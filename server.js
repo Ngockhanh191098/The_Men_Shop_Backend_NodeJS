@@ -13,7 +13,6 @@ const paymentRouter = require('./router/payment.router');
 const orderRouter = require('./router/order.router');
 const orderDetailRouter = require('./router/orderDetail.router');
 const swaggerUI = require('swagger-ui-express');
-// const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerFile = require('./swagger-output.json')
 const PORT = process.env.PORT || 5000;
 
@@ -42,5 +41,5 @@ app.use("/api/v1/carts",cartRouter);
 app.use("/api/v1/orderDetail", orderDetailRouter);
 
 app.listen( PORT, () => {
-    console.log(`Server is running on port ${PORT}....`);
+    console.log(`Server is running on port ${PORT}....\nAPI documentation: http://127.0.0.1:5000/api-doc`);
 })

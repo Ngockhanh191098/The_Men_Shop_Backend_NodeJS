@@ -10,7 +10,7 @@ userRouter.get( "/", verifyToken, isAdmin, getAllUser );
 
 userRouter.get('/:id', verifyToken, getUserById)
 
-userRouter.post( "/add-user", verifyToken, isAdmin, verfySignup, createUser );
+userRouter.post( "/", verifyToken, isAdmin, verfySignup, createUser );
 
 userRouter.delete( "/:id", verifyToken, isAdmin, deleteUser );
 
@@ -18,7 +18,7 @@ userRouter.put('/changepass/:id', verifyToken, changePassword);
 
 userRouter.put('/info/:id', verifyToken,  isMember, updateInfoUser);
 
-userRouter.put( "/role/:id", verifyToken, isAdmin, findUser, updateRole );
+userRouter.put( "/:id", verifyToken, isAdmin, findUser, updateRole );
 
 
 module.exports = userRouter;
