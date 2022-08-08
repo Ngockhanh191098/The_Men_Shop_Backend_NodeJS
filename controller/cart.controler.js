@@ -26,7 +26,6 @@ const getCart = async (req, res) => {
       },
       include: ["product", "user"]
     })
-    console.log(carts);
     if (!carts || carts.length === 0) {
       return res.status(200).json([])
     }
@@ -73,6 +72,7 @@ const addProductToCart = async (req, res) => {
       const foundProduct = await CartModel.findOne({
         where: {
           productId: idProduct,
+          userId: id,
         }
       });
 
