@@ -7,6 +7,7 @@ const { DEFAULT_AVT } = require('../config/common.config')
 const { PERMISSION_MEMBER, PERMISSION_ADMIN } = require("../config/permission.config");
 
 exports.signup = async( req, res )=>{
+
     const {
         fullName,
         username,
